@@ -144,8 +144,10 @@ void ofxGuiGroup::add(ofParameter<int> & parameter){
 	add(new ofxIntSlider(parameter,b.width));
 }
 
-void ofxGuiGroup::add(ofParameter<bool> & parameter){
-	add(new ofxToggle(parameter,b.width));
+ofxBaseGui* ofxGuiGroup::add(ofParameter<bool> & parameter){
+    ofxBaseGui* newComponent = new ofxToggle(parameter,b.width);
+	add(newComponent);
+    return newComponent;
 }
 
 void ofxGuiGroup::add(ofParameter<string> & parameter){
@@ -179,6 +181,16 @@ void ofxGuiGroup::add(ofParameter<ofFloatColor> & parameter){
 void ofxGuiGroup::remove(string label) {
     for(int i = 0; i < (int)collection.size(); i++){
         if(collection[i]->getName() == label) {
+            collection[i]->unregisterKeyEvents();
+            collection[i]->unregisterMouseEvents();
+            collection.erase(collection.begin() + i);
+        }
+    }
+}
+
+void ofxGuiGroup::remove(ofxBaseGui* parameter) {
+    for(int i = 0; i < (int)collection.size(); i++){
+        if(collection[i] == (ofxBaseGui*)parameter) {
             collection[i]->unregisterKeyEvents();
             collection[i]->unregisterMouseEvents();
             collection.erase(collection.begin() + i);

@@ -17,7 +17,7 @@ public:
     void add(const ofParameterGroup & parameters);
 	void add(ofParameter<float> & parameter);
 	void add(ofParameter<int> & parameter);
-	void add(ofParameter<bool> & parameter);
+	ofxBaseGui* add(ofParameter<bool> & parameter);
 	void add(ofParameter<string> & parameter);
     void add(ofParameter<ofVec2f> & parameter);
     void add(ofParameter<ofVec3f> & parameter);
@@ -27,6 +27,7 @@ public:
     void add(ofParameter<ofFloatColor> & parameter);
     
     void remove(string label);
+    void remove(ofxBaseGui* parameter);
 
     void minimize();
     void maximize();
